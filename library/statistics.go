@@ -14,7 +14,6 @@ func Mean(arr []int) (mean float64) {
 	return
 }
 
-
 func WeightedMean(arr []int, weights []int) (mean float64) {
 	weight_sum := 0
 
@@ -68,7 +67,7 @@ func Quartiles(arr []int) (q1 float64, q2 float64, q3 float64) {
 	var midr int
 	mid := float64(len(arr)) / 2
 
-	if len(arr) % 2 == 0 {
+	if len(arr)%2 == 0 {
 		midr = int(mid)
 		midl = midr
 	} else {
@@ -77,11 +76,11 @@ func Quartiles(arr []int) (q1 float64, q2 float64, q3 float64) {
 	}
 
 	sort.Sort(sort.IntSlice(arr))
-	
+
 	q1 = Median(arr[:midl], false)
 	q2 = Median(arr, false)
 	q3 = Median(arr[midr:], false)
-	
+
 	return
 }
 
@@ -90,7 +89,7 @@ func Variance(arr []int) float64 {
 	mean := Mean(arr)
 
 	for i := 0; i < len(arr); i++ {
-		variance = variance + math.Pow(float64(arr[i]) - mean, 2)
+		variance = variance + math.Pow(float64(arr[i])-mean, 2)
 	}
 
 	return variance / float64(len(arr))
@@ -104,4 +103,16 @@ func InterquartileRange(arr []int) float64 {
 	q1, _, q3 := Quartiles(arr)
 
 	return q3 - q1
+}
+
+func BinomialDistribution(x uint64, n uint64, p float64) float64 {
+	return float64(Combinations(n, x)) * math.Pow(p, float64(x)) * math.Pow(1-p, float64(n-x))
+}
+
+func NegativeBinomialDistribution(x uint64, n uint64, p float64) float64 {
+	return float64(Combinations(n-1, x-1)) * math.Pow(p, float64(x)) * math.Pow(1-p, float64(n-x))
+}
+
+func GeometricDistribution(n uint64, p float64) float64 {
+	return math.Pow(1-p, float64(n-1)) * p
 }

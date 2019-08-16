@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/alexkarpovich/go-statistics-lab/library"
 )
 
@@ -17,7 +18,7 @@ func main() {
 	fmt.Sscan("5 4 3 2 1 5", library.PackAddrs(freqs)...)
 
 	for i := 0; i < len(items); i++ {
-		for j := 0; j< freqs[i]; j++ {
+		for j := 0; j < freqs[i]; j++ {
 			arr = append(arr, items[i])
 		}
 	}
