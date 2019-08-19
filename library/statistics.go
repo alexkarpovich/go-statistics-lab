@@ -116,3 +116,23 @@ func NegativeBinomialDistribution(x uint64, n uint64, p float64) float64 {
 func GeometricDistribution(n uint64, p float64) float64 {
 	return math.Pow(1-p, float64(n-1)) * p
 }
+
+func PoissonDistribution(lambda float64, k uint64) float64 {
+	return math.Pow(lambda, float64(k)) * math.Pow(math.E, -lambda) / float64(Factorial(k))
+}
+
+func NormalProbability(x float64, mean float64, stddev float64) float64 {
+	return (1 + math.Erf((x-mean)/(stddev * math.Sqrt(2)))) / 2
+}
+
+func CentralLimit(limit float64, count uint64, mean float64, stddev float64) float64 {
+	return NormalProbability(limit, float64(count) * mean, math.Sqrt(float64(count)) * stddev)
+}
+
+func DetermineCentralLimitA(zScore float64, count uint64, mean float64, stddev float64) float64 {
+	return (mean * float64(count) - zScore * stddev * math.Sqrt(float64(count))) / float64(count)
+}
+
+func DetermineCentralLimitB(zScore float64, count uint64, mean float64, stddev float64) float64 {
+	return (mean * float64(count) + zScore * stddev * math.Sqrt(float64(count))) / float64(count)
+}
