@@ -10,11 +10,11 @@ func main() {
 	n := 6
 	//fmt.Scan(&n)
 
-	items := make([]int, n)
+	items := make([]float64, n)
 	freqs := make([]int, n)
-	arr := make([]int, 0)
+	arr := make([]float64, 0)
 
-	fmt.Sscan("6 12 8 10 20 16", library.PackAddrs(items)...)
+	fmt.Sscan("6 12 8 10 20 16", library.PackFloatAddrs(items)...)
 	fmt.Sscan("5 4 3 2 1 5", library.PackAddrs(freqs)...)
 
 	for i := 0; i < len(items); i++ {
