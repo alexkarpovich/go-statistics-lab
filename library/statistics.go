@@ -3,6 +3,8 @@ package library
 import (
 	"math"
 	"sort"
+
+	"gonum.org/v1/gonum/mat"
 )
 
 func Mean(arr []float64) (mean float64) {
@@ -184,4 +186,24 @@ func RankCorrelation(x []float64, y []float64) float64 {
 	}
 
 	return Correlation(xRanks, yRanks)
+}
+
+func ComputeMultRegressionOutcome(colx int, x []float64, y []float64, tx []float64) []float64 {
+	var XP, XPI, XF, B, TY mat.Dense
+	lnx := len(x)
+	lntx := len(tx)
+	rowx := lnx / colx
+	rowtx := lntx / colx
+	X := mat.NewDense(rowx, colx, x)
+	TX := mat.NewDense(rowtx, colx, tx)
+	Y := mat.NewDense(rowx, 1, y)
+
+	// (Xt * X)^-1 * Xt * Y
+	XP.Mul(X.T(), X)
+	XPI.Inverse(&XP)
+	XF.Mul(&XPI, X.T())
+	B.Mul(&XF, Y)
+	TY.Mul(TX, &B)
+
+	return TY.RawMatrix().Data
 }
